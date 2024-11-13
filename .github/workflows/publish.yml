@@ -22,18 +22,14 @@ jobs:
       - name: Login to Docker Registry
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.TOKEN }}
 
-      - name: Set TAG
-        run: echo TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV
-
-      - name: Publish ${{ matrix.svc }}
+      - name: Publish
         uses: docker/build-push-action@v3
         with:
           file: Dockerfile
           outputs: "type=registry,push=true"
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: |
-            lipanski/docker-static-website:${{ env.TAG }}
-            lipanski/docker-static-website:latest
+            madeliney/docker-static-website:latest
