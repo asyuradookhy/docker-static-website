@@ -2,9 +2,9 @@
 name: publish
 
 on:
-  push:
-    tags:
-      - "*"
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 */7 * *'  # 每隔7天的UTC时间午夜运行
 
 jobs:
   publish:
